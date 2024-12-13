@@ -4,7 +4,6 @@ import Footer from "./components/Footer";
 import Game from "./components/Game/Game";
 import Leaderboard from "./components/Leaderboard/Leaderboard";
 import { useWallet } from "./hooks/useWallet";
-import MyWasm from "./wasm/myWasm";
 
 function App() {
   const { isConnected, address, connectWallet } = useWallet();
@@ -18,7 +17,6 @@ function App() {
       />
       <Game isConnected={isConnected} />
       <Leaderboard />
-      <MyWasm />
       <Footer />
     </div>
   );
