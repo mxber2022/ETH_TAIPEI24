@@ -1,58 +1,18 @@
-use serde::{Deserialize, Serialize};
-use wasm_bindgen::prelude::*;
-use zkwasm_rust_sdk::allocator::alloc_witness_memory;
-use zkwasm_rust_sdk::{
-    wasm_input,
-    require,
-};
-use derive_builder::WitnessObj;
-use zkwasm_rust_sdk::witness::{load_witness_obj, prepare_witness_obj, WitnessObjWriter};
-use zkwasm_rust_sdk::witness::WitnessObjReader;
+// src/lib.rs
+#[no_mangle]
+pub extern "C" fn check_guess(guess: u32) -> u32 {
+    // Secret number (in practice, this would be a private input not visible in the final code)
+    let secret: u32 = 42;
 
-#[derive(Serialize, Deserialize, WitnessObj, PartialEq, Clone, Debug)]
-struct A {
-    x: u64
-}
-
-
-#[derive(Serialize, Deserialize, WitnessObj, PartialEq, Clone, Debug)]
-struct B {
-    x: u64
-}
-
-#[derive(Serialize, Deserialize, WitnessObj, PartialEq, Clone, Debug)]
-enum Command {
-    S(A),
-    R(B)
-}
-
-
-fn handle_tx(c: &Command) {
-    return;
-}
-
-#[wasm_bindgen]
-pub fn zkmain() {
-    let calldata_addr = alloc_witness_memory();
-    let calldata = load_witness_obj::<Vec<Command>>(||
-        unsafe {
-            wasm_input(0)
-        },
-        calldata_addr
-    );
-    for tx in unsafe { &*calldata } {
-        handle_tx(tx);
+    // Return codes:
+    // 0 = correct
+    // 1 = too low
+    // 2 = too high
+    if guess == secret {
+        0
+    } else if guess < secret {
+        1
+    } else {
+        2
     }
-}
-
-#[wasm_bindgen]
-pub fn produce_inputs(json_str: String) {
-    let mut commands = vec![];
-    prepare_witness_obj(
-        &mut |x| commands.push(x),
-        |json_str| {
-            serde_json::from_str::<Vec<Command>>(json_str).unwrap()
-        },
-        &json_str
-    )
 }
