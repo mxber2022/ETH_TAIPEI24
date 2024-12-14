@@ -1,12 +1,50 @@
 import React, { useState } from "react";
 import { Menu, Home, Github, Gamepad2, Trophy, X } from "lucide-react";
 
+import { DNSConnect } from "@webinterop/dns-connect";
+import { ENSModule } from "@webinterop/dns-connect-ens";
+import { mainnet } from "viem/chains";
+import { http } from "viem";
+import { useEffect } from "react";
+
 export const Navigation: React.FC<{
   isConnected: boolean;
   address: string | null;
   connectWallet: () => void;
 }> = ({ isConnected, address, connectWallet }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const [walletName, setWalletName] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isConnected && address) {
+      const dnsConnect = new DNSConnect({
+        modules: [
+          new ENSModule({
+            chain: mainnet,
+            transport: http(
+              "https://eth-mainnet.g.alchemy.com/v2/kaFl069xyvy3np41aiUXwjULZrF67--t"
+            ),
+          }),
+        ],
+      });
+      console.log("address: ", address);
+      const resolveENS = async () => {
+        try {
+          const resolvedAddress = await dnsConnect.reverseResolve(
+            "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+            "ETH"
+          );
+          setWalletName(resolvedAddress);
+          console.log("resolvedAddress: ", resolvedAddress);
+        } catch (error) {
+          console.error("Error resolving ENS name:", error);
+        }
+      };
+
+      resolveENS();
+    }
+  }, [isConnected, address]);
 
   return (
     <nav className="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
@@ -66,6 +104,8 @@ export const Navigation: React.FC<{
               onClick={connectWallet}
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg transition-all transform hover:scale-[1.02] flex items-center space-x-2 text-sm font-medium tracking-tight"
             >
+              <span>{walletName ? `${walletName}` : ""}</span>
+
               <span>
                 {isConnected
                   ? `${address?.slice(0, 6)}...${address?.slice(-4)}`
