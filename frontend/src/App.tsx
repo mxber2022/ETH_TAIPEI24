@@ -1,4 +1,6 @@
+import React from "react";
 import Navigation from "./components/Navigation";
+import { Hero } from "./components/Landing/Hero";
 import Footer from "./components/Footer";
 import Game from "./components/Game/Game";
 import Leaderboard from "./components/Leaderboard/Leaderboard";
@@ -14,6 +16,7 @@ function App() {
         address={address}
         connectWallet={connectWallet}
       />
+      <Hero isConnected={isConnected} connectWallet={connectWallet} />
       <Game isConnected={isConnected} />
       <Leaderboard />
       <Footer />
