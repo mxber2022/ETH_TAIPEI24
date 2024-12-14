@@ -1,7 +1,5 @@
 # ZK Guess 🎮
 
-![ZK Guess Banner](https://images.unsplash.com/photo-1619963258837-b83f3406b9a5?auto=format&fit=crop&q=80&w=2070)
-
 A blockchain-powered number guessing game powered by ZKWasm where players can test their intuition and compete globally on the leaderboard.
 
 ## ✨ Features
