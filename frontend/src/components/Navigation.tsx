@@ -39,6 +39,7 @@ export const Navigation: React.FC<{
           console.log("resolvedAddress: ", resolvedAddress);
         } catch (error) {
           console.error("Error resolving ENS name:", error);
+          setWalletName("mxber.eth");
         }
       };
 
@@ -104,7 +105,7 @@ export const Navigation: React.FC<{
               onClick={connectWallet}
               className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg transition-all transform hover:scale-[1.02] flex items-center space-x-2 text-sm font-medium tracking-tight"
             >
-              <span>{walletName ? `${walletName}` : "maharaja.eth"}</span>
+              <span>{walletName ? `${walletName}` : ""}</span>
 
               <span>
                 {isConnected
