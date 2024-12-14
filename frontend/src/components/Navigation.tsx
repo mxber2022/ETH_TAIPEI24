@@ -39,7 +39,7 @@ export const Navigation: React.FC<{
           console.log("resolvedAddress: ", resolvedAddress);
         } catch (error) {
           console.error("Error resolving ENS name:", error);
-          setWalletName("mxber.eth");
+          setWalletName("NOENS");
         }
       };
 
