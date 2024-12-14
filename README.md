@@ -11,6 +11,12 @@ A blockchain-powered number guessing game powered by ZKWasm where players can te
 - **Responsive Design**: Beautiful UI that works across all devices
 - **Dark Mode**: Easy on the eyes with a sleek dark theme
 
+## zkWasm
+
+```bash
+https://explorer.zkwasmhub.com/image/EC84C955A138231FFE1AB5681DCF28C6
+```
+
 ## 🚀 Quick Start
 
 1. Clone the repository:
