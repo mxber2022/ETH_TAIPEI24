@@ -72,7 +72,7 @@ const Footer = () => {
           <div className="flex items-center space-x-2">
             <span className="text-gray-400">Made with</span>
             <Heart className="h-5 w-5 text-red-500" />
-            <span className="text-gray-400">by ZK Guess Team</span>
+            <span className="text-gray-400">by MX</span>
           </div>
           <p className="mt-2 text-gray-500 text-sm">
             © 2024 ZK Guess. All rights reserved.
